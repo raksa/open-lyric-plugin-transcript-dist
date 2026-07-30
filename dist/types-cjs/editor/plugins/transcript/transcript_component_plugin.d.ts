@@ -6,15 +6,17 @@ import type { OpenLyricContributions, OpenLyricPlugin, OpenLyricSurface } from '
  * (`transcript_ol_editor.ts`) — the same `createTranscriptController`
  * factory, action label, and CSS the application consumes.
  *
- * The one piece of DOM the plugin owns outright is the browser-warning
- * banner: `install()` mounts `html/browser-warning.html` into the host's
- * `container`, or into its own toast panel when no container is given (see
- * {@link EditorPluginTranscriptOptions.container}).
+ * The DOM the plugin owns outright is its non-panel chrome: the
+ * browser-warning banner (`html/browser-warning.html`) and the two upload
+ * dialogs (`html/upload-dialogs.html` — the upload form and the API-key
+ * permission screenshot it links to). `install()` mounts them into the host's
+ * `container`, or into the fallbacks described on
+ * {@link EditorPluginTranscriptOptions.container}.
  *
  * Scope, honestly: the rest of the record/upload flow renders into the
- * editor shell's transcript chrome (upload dialog, locale select, meter),
- * which the controller receives via the shell `refs` — it does not build
- * that DOM. So on a host with that chrome (the app page), the wrapped
+ * editor shell's transcript chrome (record toggle, locale select, upload
+ * button, meter), which the controller receives via the shell `refs` — it
+ * does not build that DOM. So on a host with that chrome (the app page), the wrapped
  * application mounts the controller; on a bare standalone `Editor` this
  * plugin is
  * declarative today: the host validates it (singleton `transcript` kind,
@@ -31,15 +33,21 @@ export interface EditorPluginTranscriptOptions {
      */
     provider?: 'elevenlabs';
     /**
-     * Where the plugin mounts the browser-warning banner it owns
-     * (`html/browser-warning.html`) — pass the shell element that should carry
-     * it inline. Omit it and the plugin creates its own fixed-position toast
-     * panel at the bottom of the viewport instead, so a host that has nowhere
-     * to put the banner still gets one.
+     * Where the plugin mounts the chrome it owns — pass the element that should
+     * carry it. Omit it and each piece falls back on its own:
+     *
+     * - the browser-warning banner (`html/browser-warning.html`) goes into a
+     *   fixed-position toast panel the plugin creates at the bottom of the
+     *   viewport, so a host with nowhere to put it still gets one;
+     * - the upload + permission dialogs (`html/upload-dialogs.html`) go into the
+     *   dashboard shell root when a dashboard is on the page — where this markup
+     *   used to be inlined, and where the `.ol-dashboard`-scoped
+     *   `.share-link-dialog` styling reaches them. With no dashboard and no
+     *   container they are not installed at all.
      *
      * Either way the install is skipped when the document already renders the
-     * banner, so a host that inlines a copy of its own keeps it. No app page
-     * does — they all take the toast panel.
+     * markup, so a host that inlines a copy of its own keeps it. No app page
+     * inlines either piece — they take the toast panel and the shell root.
      */
     container?: HTMLElement | null;
 }
@@ -57,15 +65,26 @@ declare class EditorPluginTranscript implements OpenLyricPlugin {
     private readonly container;
     /** The banner this plugin mounted, so `uninstall()` removes only its own. */
     private warningElement;
+    /** Same contract for the upload + permission dialogs it mounted. */
+    private dialogElements;
     constructor(options?: EditorPluginTranscriptOptions);
     /**
-     * Mount the plugin's own chrome — the browser-warning banner — into the
-     * configured `container`, or into the plugin's toast panel when the host
-     * gave it nowhere to go. The app's captured element refs are refreshed
-     * afterwards so the controller finds the banner through
-     * `refs.editorTranscriptBrowserWarning`, exactly as when a page inlines it.
+     * Mount the plugin's own chrome:
      *
-     * Runs synchronously from `addPlugin()`, i.e. before the dashboard boots.
+     * - the browser-warning banner, into the configured `container` or the
+     *   plugin's toast panel when the host gave it nowhere to go;
+     * - the upload dialog and its permission screenshot, into `container` or
+     *   the dashboard shell root when a dashboard is on the page (a bare
+     *   `Editor` with no container gets neither dialog — see
+     *   {@link installTranscriptDialogMarkup}).
+     *
+     * The app's captured element refs are refreshed afterwards so the controller
+     * finds them through `refs.editorTranscriptBrowserWarning` /
+     * `refs.editorTranscriptUploadDialog`, exactly as when a page inlines them.
+     *
+     * Runs synchronously from `addPlugin()`, i.e. before the dashboard boots —
+     * which is also why the shell root is already there to receive the dialogs:
+     * the page entries install the shell markup before composing the editor.
      */
     install(): void;
     uninstall(): void;

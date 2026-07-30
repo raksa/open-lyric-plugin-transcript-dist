@@ -30,19 +30,23 @@ component rejects a second transcript plugin.
 
 ### `container`
 
-Where the plugin mounts the browser-warning banner it owns ("only desktop
-Chrome supports transcript"). Omit it and the plugin creates its own
-fixed-position toast panel at the bottom of the viewport, so a host with
-nowhere to put the banner still gets one. Either way the install is skipped
-when the document already renders a banner of its own, and `uninstall()`
-removes only what the plugin itself mounted.
+Where the plugin mounts the chrome it owns: the browser-warning banner ("only
+desktop Chrome supports transcript") and the upload dialog with the API-key
+permission screenshot it links to. Omit it and each falls back on its own — the
+banner into a fixed-position toast panel the plugin creates at the bottom of the
+viewport, so a host with nowhere to put it still gets one; the dialogs into the
+dashboard shell root (`[data-ol-ref="app"]`) when a dashboard is on the page, and
+nowhere at all without one, since a bare `Editor` has no shell to hang a modal on
+and no controller mounted to drive it. Either way the install is skipped when the
+document already renders markup of its own, and `uninstall()` removes only what
+the plugin itself mounted.
 
 ## Scope, honestly
 
-The banner is the only DOM this plugin owns outright. The rest of the
-record/upload flow — upload dialog, locale select, level meter — renders into
-the editor **shell's** transcript chrome, which the controller reaches through
-the shell refs. So:
+The banner and the two dialogs are the DOM this plugin owns outright. The chrome
+that *triggers* the flow — record toggle, locale select, upload button, level
+meter — renders into the editor **shell's** panel markup, which the controller
+reaches through the shell refs. So:
 
 - On the app pages (and any host with that chrome), the wrapped application
   mounts the controller and the full flow works.
@@ -74,8 +78,8 @@ dual-package note in the
 The ElevenLabs controller, locale table, and stylesheet already ship inside
 `open-lyric` (its component barrel transitively contains the built-in plugin
 registry). This package bundles only what is genuinely its own — the plugin
-class and the banner installer — and redirects the rest to
-`open-lyric/internal`.
+class and the markup installer with its two HTML fragments — and redirects the
+rest to `open-lyric/internal`.
 
 That redirect is a correctness requirement, not an optimization:
 `editor/scripts/shared.ts` (the app's captured element `refs`) and

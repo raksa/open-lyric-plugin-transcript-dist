@@ -14,5 +14,5 @@
  * into the `container` option or their own fallbacks (a fixed-position toast
  * panel; the dashboard shell root).
  */
-export { EditorPluginTranscript } from '../../../editor/plugins/transcript/transcript_component_plugin.js';
-export type { EditorPluginTranscriptOptions } from '../../../editor/plugins/transcript/transcript_component_plugin.js';
+export { EditorPluginTranscript } from '../../../src/plugins/transcript/transcript_component_plugin.js';
+export type { EditorPluginTranscriptOptions } from '../../../src/plugins/transcript/transcript_component_plugin.js';

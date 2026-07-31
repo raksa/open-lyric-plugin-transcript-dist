@@ -73,13 +73,14 @@ would refresh a different `refs` object than the core reads. See the
 dual-package note in the
 [`open-lyric` README](../open-lyric/README.md#requirements-and-caveats).
 
-## Why this package is tiny (~3 kB)
+## What this package bundles
 
-The ElevenLabs controller, locale table, and stylesheet already ship inside
-`open-lyric` (its component barrel transitively contains the built-in plugin
-registry). This package bundles only what is genuinely its own — the plugin
-class and the markup installer with its two HTML fragments — and redirects the
-rest to `open-lyric/internal`.
+The ElevenLabs controller, the locale table, the stylesheet, the plugin class,
+and the markup installer with its two HTML fragments all ship here — the core
+`open-lyric` bundle carries none of them. `EditorPluginTranscript.install()`
+publishes the registry data itself, so attaching the plugin is the only thing
+that enables transcription on a host. Only the core's stateful shared modules
+are redirected to `open-lyric/internal`.
 
 That redirect is a correctness requirement, not an optimization:
 `editor/scripts/shared.ts` (the app's captured element `refs`) and

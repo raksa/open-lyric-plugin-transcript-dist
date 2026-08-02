@@ -1,7 +1,7 @@
 import type { OpenLyricComponentHost, OpenLyricContributions, OpenLyricPlugin, OpenLyricSurface } from '../../editor/components/index.js';
 /**
  * The transcript plugin expressed in the generic per-component contract from
- * `research/editor-structure-enhanced.md` (§"Example: the transcript
+ * `research/editor-structure-implemented.md` (§"Example: the transcript
  * plugin"). All contribution data is the real registry data
  * (`transcript_ol_editor.ts`) — the same `createTranscriptController`
  * factory, action label, and CSS the application consumes.

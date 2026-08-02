@@ -1,6 +1,6 @@
 {
   "name": "open-lyric-plugin-transcript",
-  "version": "0.1.2",
+  "version": "0.1.4",
   "description": "Audio transcription for the Open Lyric editor — browser-direct ElevenLabs, no server.",
   "license": "MIT",
   "author": "raksa <eng.raksa@gmail.com>",

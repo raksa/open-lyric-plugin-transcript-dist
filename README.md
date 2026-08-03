@@ -28,6 +28,14 @@ editor.addPlugin('transcript', transcript);
 Surfaces: `editor`, `dashboard`. `transcript` is a **singleton kind** — a
 component rejects a second transcript plugin.
 
+`version` is this package's own version, taken from its `package.json` at build
+time. It bumps independently of the core's, so alias one of them when reporting
+both:
+
+```js
+import { version as transcriptVersion } from 'open-lyric-plugin-transcript';
+```
+
 ### `container`
 
 Where the plugin mounts the chrome it owns: the browser-warning banner ("only

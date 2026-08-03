@@ -16,3 +16,4 @@
  */
 export { EditorPluginTranscript } from '../../../src/plugins/transcript/transcript_component_plugin.js';
 export type { EditorPluginTranscriptOptions } from '../../../src/plugins/transcript/transcript_component_plugin.js';
+export { version } from './version.js';

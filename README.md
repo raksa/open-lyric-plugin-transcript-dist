@@ -1,6 +1,6 @@
 # Open Lyric Plugin Transcript
 
-Audio → text transcription for the [`open-lyric`](../open-lyric) editor.
+Audio → text transcription for the [`Open Lyric`](https://github.com/raksa/open-lyric-dist#readme) editor.
 Browser-direct ElevenLabs: the API key is entered by the user at runtime and
 kept in local storage — **no server is involved**.
 
@@ -79,7 +79,7 @@ core still keeps module-level state — this plugin's `install()` calls
 `refreshElementRefs()` on it — so mixing `import` and `require` across the two
 would refresh a different `refs` object than the core reads. See the
 dual-package note in the
-[`open-lyric` README](../open-lyric/README.md#requirements-and-caveats).
+[`Open Lyric` README](https://github.com/raksa/open-lyric-dist#requirements-and-caveats).
 
 ## What this package bundles
 

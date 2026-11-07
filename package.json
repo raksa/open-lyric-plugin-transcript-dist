@@ -1,17 +1,17 @@
 {
   "name": "open-lyric-plugin-transcript",
-  "version": "0.1.6",
+  "version": "0.1.12",
   "description": "Audio transcription for the Open Lyric editor — browser-direct ElevenLabs, no server.",
   "license": "MIT",
   "author": "raksa <eng.raksa@gmail.com>",
-  "homepage": "https://github.com/raksa/open-lyric/tree/main/packages/open-lyric-plugin-transcript#readme",
+  "homepage": "https://github.com/raksa/open-lyric-plugin-transcript-dist#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/raksa/open-lyric.git",
+    "url": "git+https://github.com/raksa/open-lyric-plugin-transcript-dist.git",
     "directory": "packages/open-lyric-plugin-transcript"
   },
   "bugs": {
-    "url": "https://github.com/raksa/open-lyric/issues"
+    "url": "https://github.com/raksa/open-lyric-plugin-transcript-dist/issues"
   },
   "type": "module",
   "sideEffects": false,

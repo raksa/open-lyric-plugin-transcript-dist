@@ -1,4 +1,4 @@
-# open-lyric-plugin-transcript
+# Open Lyric Plugin Transcript
 
 Audio → text transcription for the [`open-lyric`](../open-lyric) editor.
 Browser-direct ElevenLabs: the API key is entered by the user at runtime and
@@ -109,10 +109,10 @@ For maintainers, from a clean `main`:
 
 ```bash
 npm test
-npm pack --dry-run                          # check which files go in the package
-npm whoami                                  # run `npm login` if this fails
-npm version patch --tag-version-prefix=""   # or minor / major
+npm pack --dry-run                            # check which files go in the package
+npm whoami                                    # run `npm login` if this fails
+npm version patch --tag-version-prefix=""     # or minor / major
 npm publish
 git push origin main --follow-tags
-npm view open-lyric-plugin-transcript version                   # confirm the new version is live
+npm view open-lyric-plugin-transcript version # confirm the new version is live
 ```
